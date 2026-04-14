@@ -20,9 +20,9 @@ export const PAD_COLORS = {
 export const GROUPS = [
   { id: 'llm', label: 'LLMs y MODELOS', accentColor: PAD_COLORS.purple },
   { id: 'ai_tools', label: 'HERRAMIENTAS IA', accentColor: PAD_COLORS.violet },
-  { id: 'projects', label: 'PROYECTOS ACTIVOS', accentColor: PAD_COLORS.darkGreen },
+  { id: 'projects', label: 'PROYECTOS ACTIVOS', accentColor: PAD_COLORS.emerald },
   { id: 'apps', label: 'Apps y SaaS', accentColor: PAD_COLORS.blue },
-  { id: 'clients', label: 'WEBS y CLIENTES', accentColor: PAD_COLORS.rust },
+  { id: 'clients', label: 'WEBS y CLIENTES', accentColor: PAD_COLORS.coral },
   { id: 'vibe', label: 'Vibe Coding', accentColor: PAD_COLORS.purpleBright },
 ];
 
