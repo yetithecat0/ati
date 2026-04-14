@@ -34,3 +34,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI & Assistant Data
+.gemini/
+.agents/
+
+# Local Backups & Configs
+respaldo-conf-pads-usuario/
+
+# Design & System assets (local only)
+brand/
+stitch/
+.DS_Store
+Thumbs.db
+
+# Private Env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
