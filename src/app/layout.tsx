@@ -15,8 +15,33 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://ati-alphas-tool-interactive.vercel.app'
+  ),
   title: "ATI / Alphas Tool Interactive",
   description: "Estación de comando digital minimalista para centralizar tu ecosistema de IA y herramientas Web. Centraliza tu flujo de trabajo con arquitectura táctil.",
+  openGraph: {
+    title: "ATI / Alphas Tool Interactive",
+    description: "Estación de comando digital minimalista para centralizar tu ecosistema de IA y herramientas Web.",
+    url: "https://ati-alphas-tool-interactive.vercel.app",
+    siteName: "ATI Dashboard",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "ATI - Alphas Tool Interactive Dashboard",
+      },
+    ],
+    locale: "es_PE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ATI / Alphas Tool Interactive",
+    description: "Estación de comando digital para centralizar tu ecosistema de IA.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
