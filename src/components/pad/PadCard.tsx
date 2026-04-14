@@ -62,7 +62,7 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
     <button
       onClick={handlePadClick}
       className={`
-        relative w-[88px] h-[88px] shrink-0 rounded-[14px] p-2 flex flex-col items-center justify-center gap-1.5 
+        relative w-[88px] h-[88px] shrink-0 rounded-[14px] p-2 flex flex-col items-center justify-between
         transition-all duration-150 group shrink-0 box-border
         ${isGhost ? 'opacity-20 grayscale pointer-events-none' : ''}
         ${mode === 'launch' 
@@ -115,44 +115,53 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
         </div>
       )}
 
-      <div 
-        className={`w-[30px] h-[30px] rounded-[8px] flex items-center justify-center mb-0.5 overflow-hidden shrink-0 shadow-inner transition-transform relative pointer-events-none ${mode === 'launch' && 'group-hover:scale-110'}`}
-        style={{ backgroundColor: color }}
-      >
-        <span className="text-white text-[12px] font-bold font-headline absolute inset-0 flex items-center justify-center z-0">
-          {initials}
-        </span>
-        <img 
-          src={logoUrl} 
-          alt={`${name} logo`} 
-          className={`w-full h-full object-cover relative z-10 transition-opacity duration-200 ${imgError ? 'opacity-0' : 'opacity-100'}`}
-          onError={() => setImgError(true)}
-        />
+      {/* Contenedor Superior: Icono */}
+      <div className="flex-1 flex items-center justify-center mt-1">
+        <div 
+          className={`w-[32px] h-[32px] rounded-[9px] flex items-center justify-center overflow-hidden shrink-0 shadow-inner transition-transform relative pointer-events-none ${mode === 'launch' && 'group-hover:scale-110'}`}
+          style={{ backgroundColor: color }}
+        >
+          <span className="text-white text-[12px] font-bold font-headline absolute inset-0 flex items-center justify-center z-0">
+            {initials}
+          </span>
+          <img 
+            src={logoUrl} 
+            alt={`${name} logo`} 
+            className={`w-full h-full object-cover relative z-10 transition-opacity duration-200 ${imgError ? 'opacity-0' : 'opacity-100'}`}
+            onError={() => setImgError(true)}
+          />
+        </div>
       </div>
 
-      <span className="text-[10px] font-medium text-white text-center leading-tight truncate w-full px-1 pointer-events-none">
-        {name}
-      </span>
+      {/* Contenedor Inferior: Nombre y Estrellas */}
+      <div className="flex flex-col items-center w-full mb-0.5 pointer-events-none">
+        <span className="text-[10px] font-medium text-white text-center leading-tight truncate w-full px-1">
+          {name}
+        </span>
 
-      {mode === 'launch' && rating && rating > 0 && (
-        <div className="absolute bottom-1.5 left-0 right-0 flex items-center justify-center gap-0.5 pointer-events-none opacity-90">
-          {Array.from({ length: Math.min(rating, 5) }).map((_, i) => (
-            <span 
-              key={i} 
-              className="material-symbols-outlined !leading-none select-none"
-              style={{ 
-                fontSize: '8px', 
-                width: '8px', 
-                height: '8px',
-                fontVariationSettings: '"FILL" 1, "wght" 700',
-                color: '#EF9F27'
-              }}
-            >
-              grade
-            </span>
-          ))}
+        {/* Estrellas: Solo si > 0 */}
+        <div className="h-[10px] flex items-center justify-center mt-0.5">
+          {Boolean(mode === 'launch' && rating && rating > 0) && (
+            <div className="flex items-center justify-center gap-0.5 opacity-90">
+              {Array.from({ length: Math.min(rating || 0, 5) }).map((_, i) => (
+                <span 
+                  key={i} 
+                  className="material-symbols-outlined !leading-none select-none"
+                  style={{ 
+                    fontSize: '8px', 
+                    width: '8px', 
+                    height: '8px',
+                    fontVariationSettings: '"FILL" 1, "wght" 700',
+                    color: '#EF9F27'
+                  }}
+                >
+                  grade
+                </span>
+              ))}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {status !== 'none' && mode === 'launch' && (
         <div 

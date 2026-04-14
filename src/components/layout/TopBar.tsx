@@ -134,7 +134,7 @@ function ConfigTab({ id, name, isActive, mode, onSwitch, onRename, onDelete, isO
     if (name.startsWith('NUEVA_') && isActive) {
       setIsEditing(true);
     }
-  }, [id, isActive]); // Dependencia en ID e Active para disparar en creación
+  }, [id, isActive, name]); 
 
   const handleBlur = () => {
     setIsEditing(false);

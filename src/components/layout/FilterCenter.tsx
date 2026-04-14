@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { usePadStore } from '../../store/usePadStore';
-import { PadStatus } from '../../types/ati';
+import { PadStatus, PlanType } from '../../types/ati';
 
 export function FilterCenter() {
   const { filters, setFilters, resetFilters, setIsPadModalOpen, setEditingPadId } = usePadStore();
@@ -114,7 +114,7 @@ export function FilterCenter() {
                 color="#27AE60" 
                 isActive={filters.planTypes.includes('Gratuito')}
                 onClick={() => {
-                  const newPlans = filters.planTypes.includes('Gratuito')
+                  const newPlans: PlanType[] = filters.planTypes.includes('Gratuito')
                     ? filters.planTypes.filter(p => p !== 'Gratuito')
                     : [...filters.planTypes, 'Gratuito'];
                   setFilters({ planTypes: newPlans });
@@ -125,7 +125,7 @@ export function FilterCenter() {
                 color="#EF9F27" 
                 isActive={filters.planTypes.includes('Freemium')}
                 onClick={() => {
-                  const newPlans = filters.planTypes.includes('Freemium')
+                  const newPlans: PlanType[] = filters.planTypes.includes('Freemium')
                     ? filters.planTypes.filter(p => p !== 'Freemium')
                     : [...filters.planTypes, 'Freemium'];
                   setFilters({ planTypes: newPlans });
@@ -136,7 +136,7 @@ export function FilterCenter() {
                 color="#D32F2F" 
                 isActive={filters.planTypes.includes('Pago')}
                 onClick={() => {
-                  const newPlans = filters.planTypes.includes('Pago')
+                  const newPlans: PlanType[] = filters.planTypes.includes('Pago')
                     ? filters.planTypes.filter(p => p !== 'Pago')
                     : [...filters.planTypes, 'Pago'];
                   setFilters({ planTypes: newPlans });
