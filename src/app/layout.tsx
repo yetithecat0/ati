@@ -16,14 +16,14 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://ati-alphas-tool-interactive.vercel.app'
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://ati-pad.vercel.app'
   ),
   title: "ATI / Alphas Tool Interactive",
   description: "Estación de comando digital minimalista para centralizar tu ecosistema de IA y herramientas Web. Centraliza tu flujo de trabajo con arquitectura táctil.",
   openGraph: {
     title: "ATI / Alphas Tool Interactive",
     description: "Estación de comando digital minimalista para centralizar tu ecosistema de IA y herramientas Web.",
-    url: "https://ati-alphas-tool-interactive.vercel.app",
+    url: "https://ati-pad.vercel.app",
     siteName: "ATI Dashboard",
     images: [
       {
