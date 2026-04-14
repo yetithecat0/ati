@@ -174,7 +174,7 @@ export function PadInfoCard({ pad, mousePos }: PadInfoCardProps) {
           <div className="mt-2">
             <span className="text-[10px] font-headline text-lo uppercase tracking-[0.2em] block mb-4 opacity-50">Nota del Arquitecto</span>
             <p className="text-[13px] italic text-[#c8c4d5] leading-relaxed pl-4 border-l border-ati-purple/30 relative py-1">
-              "{pad.note || 'Sin comentarios adicionales.'}"
+              &quot;{pad.note || 'Sin comentarios adicionales.'}&quot;
             </p>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Pad, Group, Workspace, Config, Filters, PadStatus } from '../types/ati';
+import { Pad, Group, Workspace, Config, Filters } from '../types/ati';
 
 interface PadState {
   pads: Pad[];
@@ -52,7 +52,7 @@ interface PadState {
   selectedGroupId?: string;
   setSelectedGroupId: (id?: string) => void;
 
-  // NEW: Bulk Actions
+  // Bulk Actions
   bulkImport: (data: { pads: Pad[], configs: Config[], workspaces: Workspace[], groups: Group[] }) => void;
   applyPreset: (presetId: string) => void;
   clearAllData: () => void;
@@ -75,13 +75,15 @@ const INITIAL_PADS: Pad[] = [
 
 const INITIAL_FILTERS: Filters = {
   search: '',
-  status: 'all',
-  groupId: 'all'
+  statuses: [],
+  minRating: 0,
+  planTypes: [],
+  tags: []
 };
 
 export const usePadStore = create<PadState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       pads: INITIAL_PADS,
       groups: INITIAL_GROUPS,
       workspaces: [{ id: 'ws_1', name: 'MESA DE TRABAJO 1' }],

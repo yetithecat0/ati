@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { usePadStore, PadStatus } from '../../store/usePadStore';
+import { usePadStore } from '../../store/usePadStore';
+import { PadStatus } from '../../types/ati';
 
 export function FilterCenter() {
-  const { filters, setFilters, resetFilters, pads, setIsPadModalOpen, setEditingPadId } = usePadStore();
+  const { filters, setFilters, resetFilters, setIsPadModalOpen, setEditingPadId } = usePadStore();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

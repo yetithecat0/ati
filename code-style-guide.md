@@ -22,10 +22,18 @@ Al alcanzar cada versión funcional (v1.0, v2.0, etc.), el asistente especializa
 - **Directivas de Posicionamiento:** Sugerencias de metadatos (Title, Description, Keywords) y estructura de encabezados para mejorar el SEO orgánico.
 - **Social Bio:** Copy redactado para compartir el lanzamiento con impacto.
 
-## 4. Reglas de Implementación
-- **Modales:** Siempre implementar como `Slide-up sheets` o `Floating Cards` centradas (utilizando `ReactDOM.createPortal`).
-- **Estados Semánticos:**
-  - Probada: Verde (`#639922`)
-  - En curso: Ámbar (`#EF9F27`)
-  - Por probar: Azul (`#378ADD`)
-- **Limpieza:** Todo componente nuevo debe ser modular. Prohibido el uso de estilos inline complejos.
+## 4. Reglas de Implementación (Stitch Logic)
+Dark Mode: Nativo. No usar gradientes decorativos ni texturas; la jerarquía se logra mediante profundidad de color (surface vs elevated).
+Semantic UI: Los estados deben ser claros:
+Probada: verde (#639922)
+En curso: ámbar (#EF9F27)
+Por probar: azul (#378ADD)
+Limpieza: Todo componente nuevo debe ser modular dentro de /stitch/[funcionalidad]. Priorizar código limpio y modular, evitando estilos inline complejos cuando se puedan definir mediante clases globales basadas en los tokens anteriores.
+
+5. Reglas de Despliegue y Calidad (Production-Ready)
+Strict Typing: Queda prohibido el uso de `any`. Todo objeto o propiedad debe tener una interfaz definida en `src/types/ati.ts`.
+Zero Circularity: No importar componentes o utilidades que generen bucles de dependencia. Usar el archivo de tipos como puente neutral.
+Build Compliance: 
+Escapar siempre entidades especiales en el JSX (usar `&quot;` en lugar de `"`).
+Cero variables o imports declarados que no se utilicen en el código final.
+SEO & Social Copy: Cada versión funcional sugerirá configuraciones de OG-Image y documentos de posicionamiento (Regla Sugerida por Yeti).

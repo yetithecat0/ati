@@ -1,4 +1,5 @@
 export type PadStatus = 'new' | 'por_probar' | 'en_uso' | 'recomendada' | 'done' | 'pending' | 'none';
+export type PlanType = 'Gratuito' | 'Freemium' | 'Pago';
 
 export interface Pad {
   id: string;
@@ -11,7 +12,7 @@ export interface Pad {
   note?: string;
   configId: string;
   advancedInfo?: boolean;
-  planType?: string;
+  planType?: PlanType;
   planDetails?: string;
   subsPrice?: string;
   tags?: string[];
@@ -36,6 +37,8 @@ export interface Config {
 
 export interface Filters {
   search: string;
-  status: PadStatus | 'all';
-  groupId: string | 'all';
+  statuses: PadStatus[];
+  minRating: number;
+  planTypes: PlanType[];
+  tags: string[];
 }

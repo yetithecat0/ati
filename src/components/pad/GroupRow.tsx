@@ -2,7 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { PadCard } from './PadCard';
-import { Pad, usePadStore } from '../../store/usePadStore';
+import { usePadStore } from '../../store/usePadStore';
+import { Pad } from '../../types/ati';
 
 interface GroupRowProps {
   id: string;
@@ -152,7 +153,7 @@ function AddPadButton({ onAddClick, groupId, mode }: { onAddClick: () => void, g
     if (timerRef.current) clearTimeout(timerRef.current);
   };
 
-  const handleReuse = (originalPad: any) => {
+  const handleReuse = (originalPad: Pad) => {
     addPad({
       name: originalPad.name,
       url: originalPad.url,

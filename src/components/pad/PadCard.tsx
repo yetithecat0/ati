@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { STATUS_COLORS } from '../../lib/constants';
-import { PadStatus, usePadStore } from '../../store/usePadStore';
+import { usePadStore } from '../../store/usePadStore';
+import { PadStatus } from '../../types/ati';
 
 interface PadCardProps {
   id: string;
@@ -47,15 +48,15 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
   };
 
   const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que se abra el modal de edición
+    e.stopPropagation();
     e.preventDefault();
     if (confirm(`¿Eliminar de forma permanente el pad '${name}'?`)) {
       deletePad(id);
     }
   };
 
-  const glowColor = `${color}80`; // Opacidad marcada (50%)
-  const hoverGlowColor = `${color}BF`; // Opacidad vibrante al hover (75%)
+  const glowColor = `${color}80`;
+  const hoverGlowColor = `${color}BF`;
 
   return (
     <button
@@ -72,11 +73,11 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
         backgroundColor: 'var(--elevated)', 
         borderColor: !isGhost && mode === 'launch' ? `${color}88` : undefined,
         borderBottomWidth: !isGhost && mode === 'launch' ? '5px' : undefined,
-        borderBottomColor: !isGhost && mode === 'launch' ? `${color}AA` : undefined, // Color más sólido abajo
+        borderBottomColor: !isGhost && mode === 'launch' ? `${color}AA` : undefined,
         boxShadow: !isGhost && mode === 'launch' 
           ? `inset 0 1px 1px rgba(255,255,255,0.1), 0 0 25px -5px ${glowColor}` 
           : 'none',
-      } as any}
+      } as React.CSSProperties}
       onMouseEnter={(e) => {
         if (!isGhost && mode === 'launch') {
           e.currentTarget.style.boxShadow = `inset 0 1px 2px rgba(255,255,255,0.2), 0 0 35px -2px ${hoverGlowColor}`;
@@ -98,7 +99,6 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
       }}
       title={mode === 'edit' ? (isGhost ? 'Marca de agua (Reutiliza con click sostenido en +)' : 'Haz clic para editar parámetros del Pad') : undefined}
     >
-      {/* Delete button (Edit Mode Only - Discreet) */}
       {mode === 'edit' && (
         <div 
           onClick={handleDelete}
@@ -109,14 +109,12 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
         </div>
       )}
 
-      {/* Live Badge (Launch Mode Only) */}
       {mode === 'launch' && isOpen && (
         <div className="absolute top-1.5 left-1.5 bg-white/20 rounded-[6px] text-[8px] px-1.5 py-[1px] text-white font-semibold shadow-sm backdrop-blur-sm pointer-events-none">
           live
         </div>
       )}
 
-      {/* Logo Area */}
       <div 
         className={`w-[30px] h-[30px] rounded-[8px] flex items-center justify-center mb-0.5 overflow-hidden shrink-0 shadow-inner transition-transform relative pointer-events-none ${mode === 'launch' && 'group-hover:scale-110'}`}
         style={{ backgroundColor: color }}
@@ -132,13 +130,11 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
         />
       </div>
 
-      {/* Name Label */}
       <span className="text-[10px] font-medium text-white text-center leading-tight truncate w-full px-1 pointer-events-none">
         {name}
       </span>
 
-      {/* Rating / Modifiers - Centered at the bottom */}
-      {mode === 'launch' && rating > 0 && (
+      {mode === 'launch' && rating && rating > 0 && (
         <div className="absolute bottom-1.5 left-0 right-0 flex items-center justify-center gap-0.5 pointer-events-none opacity-90">
           {Array.from({ length: Math.min(rating, 5) }).map((_, i) => (
             <span 
@@ -158,7 +154,6 @@ export function PadCard({ id, name, url, color, status, rating, isOpen, isGhost,
         </div>
       )}
 
-      {/* Status Dot - Top Right */}
       {status !== 'none' && mode === 'launch' && (
         <div 
           className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full pointer-events-none border border-white/20 shadow-sm"

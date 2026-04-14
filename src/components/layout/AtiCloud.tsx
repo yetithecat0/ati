@@ -103,7 +103,7 @@ export function AtiCloud({ isOpen, onClose }: AtiCloudProps) {
                 </div>
                 
                 <p className="text-[13px] text-lo/80 leading-relaxed h-12 overflow-hidden italic">
-                  "{preset.description}"
+                  &quot;{preset.description}&quot;
                 </p>
 
                 <button 

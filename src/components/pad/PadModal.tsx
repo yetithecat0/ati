@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { AtiSheet } from '../ui/AtiSheet';
-import { usePadStore, PadStatus } from '../../store/usePadStore';
+import { usePadStore } from '../../store/usePadStore';
+import { PadStatus, PlanType } from '../../types/ati';
 import { PAD_COLORS } from '../../lib/constants';
 
 interface PadModalProps {
@@ -284,9 +285,8 @@ export function PadModal({ isOpen, onClose, defaultGroupId, padToEditId }: PadMo
                         style={{ 
                           backgroundColor: opt.color,
                           boxShadow: isActive ? `0 0 12px ${opt.color}` : 'none',
-                          boxShadowColor: opt.color, // CSS var shadow trick
-                          '--tw-ring-color': `${opt.color}33` // 20% opacity hex
-                        } as any}
+                          '--tw-ring-color': `${opt.color}33`
+                        } as React.CSSProperties}
                       />
                     </button>
                   );
@@ -320,7 +320,7 @@ export function PadModal({ isOpen, onClose, defaultGroupId, padToEditId }: PadMo
                   <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-lo font-headline">Tipo de Plan</label>
                   <select 
                     value={planType} 
-                    onChange={(e) => setPlanType(e.target.value as any)}
+                    onChange={(e) => setPlanType(e.target.value as PlanType)}
                     className="bg-transparent border-b border-divider py-2 text-hi focus:outline-none focus:border-ati-purple/60 transition-colors appearance-none cursor-pointer"
                   >
                     <option value="Gratuito" className="bg-surface">Gratuito</option>
