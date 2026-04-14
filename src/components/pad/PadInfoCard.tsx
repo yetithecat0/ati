@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Pad } from '../../store/usePadStore';
+import { Pad } from '../../types/ati';
 
 interface PadInfoCardProps {
   pad: Pad | undefined;

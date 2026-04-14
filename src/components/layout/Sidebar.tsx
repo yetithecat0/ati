@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { usePadStore, Workspace } from '../../store/usePadStore';
+import { usePadStore } from '../../store/usePadStore';
+import { Workspace } from '../../types/ati';
 import { HelpModal } from './HelpModal';
 import { AtiCloud } from './AtiCloud';
 
