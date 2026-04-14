@@ -1,110 +1,62 @@
+'use client';
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { PAD_COLORS } from '../lib/constants';
-
-export type PadStatus = 'por_probar' | 'en_uso' | 'recomendada' | 'new' | 'done' | 'pending' | 'none';
-
-export interface Pad {
-  id: string;
-  name: string;
-  url: string;
-  group: string;
-  color: string;
-  status: PadStatus;
-  rating?: number;
-  note?: string;
-  configId: string; // Vínculo con la plantilla específica
-  advancedInfo?: boolean;
-  planType?: 'Gratuito' | 'Freemium' | 'Pago';
-  planDetails?: string;
-  subsPrice?: string;
-  tags?: string[];
-}
-
-export interface Workspace {
-  id: string;
-  name: string;
-}
-
-export interface Config {
-  id: string;
-  name: string;
-  workspaceId: string;
-}
-
-export interface Group {
-  id: string;
-  label: string;
-  accentColor: string;
-}
+import { Pad, Group, Workspace, Config, Filters, PadStatus } from '../types/ati';
 
 interface PadState {
   pads: Pad[];
-  configs: Config[];
-  workspaces: Workspace[];
   groups: Group[];
-  activeCfgId: string;
+  workspaces: Workspace[];
+  configs: Config[];
   activeWorkspaceId: string;
-  openedTabs: Record<string, boolean>; // id -> isOpen
-  mode: 'launch' | 'edit';
-  
+  activeCfgId: string;
+  openedTabs: { [key: string]: boolean };
+  mode: 'edit' | 'launch';
+
   // Actions
   addPad: (pad: Omit<Pad, 'id' | 'configId'>) => void;
-  updatePad: (id: string, pad: Partial<Pad>) => void;
+  updatePad: (id: string, padUpdates: Partial<Pad>) => void;
   deletePad: (id: string) => void;
   
   addGroup: (group: Omit<Group, 'id'>) => void;
-  updateGroup: (id: string, group: Partial<Group>) => void;
+  updateGroup: (id: string, updates: Partial<Group>) => void;
   deleteGroup: (id: string) => void;
-
+  
   addWorkspace: () => void;
   switchWorkspace: (id: string) => void;
   renameWorkspace: (id: string, name: string) => void;
   deleteWorkspace: (id: string) => void;
-
+  
   addConfig: () => void;
-  deleteConfig: (id: string) => void;
-  renameConfig: (id: string, name: string) => void;
   switchConfig: (id: string) => void;
+  renameConfig: (id: string, name: string) => void;
+  deleteConfig: (id: string) => void;
+  
   openTab: (id: string) => void;
   closeTab: (id: string) => void;
   closeAllTabs: () => void;
-  setMode: (mode: 'launch' | 'edit') => void;
+  
+  setMode: (mode: 'edit' | 'launch') => void;
 
-  // Filter Actions
-  filters: FilterState;
-  setFilters: (filters: Partial<FilterState>) => void;
+  // Filters state
+  filters: Filters;
+  setFilters: (newFilters: Partial<Filters>) => void;
   resetFilters: () => void;
 
-  // Modal Actions
+  // UI State
   isPadModalOpen: boolean;
   setIsPadModalOpen: (isOpen: boolean) => void;
   editingPadId?: string;
-  setEditingPadId: (id: string | undefined) => void;
+  setEditingPadId: (id?: string) => void;
   selectedGroupId?: string;
-  setSelectedGroupId: (id: string | undefined) => void;
-  
-  // Storage Actions
+  setSelectedGroupId: (id?: string) => void;
+
+  // NEW: Bulk Actions
   bulkImport: (data: { pads: Pad[], configs: Config[], workspaces: Workspace[], groups: Group[] }) => void;
   applyPreset: (presetId: string) => void;
   clearAllData: () => void;
 }
-
-export interface FilterState {
-  search: string;
-  tags: string[];
-  planTypes: ('Gratuito' | 'Freemium' | 'Pago')[];
-  minRating: number;
-  statuses: PadStatus[];
-}
-
-const INITIAL_FILTERS: FilterState = {
-  search: '',
-  tags: [],
-  planTypes: [],
-  minRating: 0,
-  statuses: []
-};
 
 const INITIAL_GROUPS: Group[] = [
   { id: '1_llm', label: 'LLMs y Modelos', accentColor: '#7F77DD' },
@@ -112,30 +64,30 @@ const INITIAL_GROUPS: Group[] = [
   { id: '3_projects', label: 'Proyectos Activos', accentColor: '#27AE60' },
   { id: '4_apps', label: 'Apps y SaaS', accentColor: '#378ADD' },
   { id: '5_clients', label: 'Webs y Clientes', accentColor: '#EF9F27' },
-  { id: '6_vibecoding', label: 'VibeCoding', accentColor: '#D32F2F' }
+  { id: '6_vibecoding', label: 'Dw - automatizaciones app', accentColor: '#D32F2F' }
 ];
 
 const INITIAL_PADS: Pad[] = [
   { id: '1', name: 'Claude', url: 'https://claude.ai', group: '1_llm', color: '#534AB7', status: 'recomendada', rating: 5, configId: 'cfg_1' },
   { id: '2', name: 'ChatGPT', url: 'https://chat.openai.com', group: '1_llm', color: '#16161a', status: 'en_uso', rating: 4, configId: 'cfg_1' },
-  { id: '3', name: 'Gemini', url: 'https://gemini.google.com', group: '1_llm', color: '#378ADD', status: 'recomendada', rating: 5, configId: 'cfg_1' },
-  { id: '4', name: 'SaaS Cond.', url: 'https://dummy-saas.com', group: '3_projects', color: '#639922', status: 'por_probar', rating: 0, configId: 'cfg_1' },
-  { id: '5', name: 'Web Guti', url: 'https://gutiperu.com', group: '3_projects', color: '#27AE60', status: 'en_uso', configId: 'cfg_1' },
-  { id: '10', name: 'Vercel', url: 'https://vercel.com', group: '4_apps', color: '#16161a', status: 'recomendada', rating: 5, configId: 'cfg_1' },
+  { id: '3', name: 'Gemini', url: 'https://gemini.google.com', group: '1_llm', color: '#378ADD', status: 'por_probar', configId: 'cfg_1' }
 ];
+
+const INITIAL_FILTERS: Filters = {
+  search: '',
+  status: 'all',
+  groupId: 'all'
+};
 
 export const usePadStore = create<PadState>()(
   persist(
     (set, get) => ({
       pads: INITIAL_PADS,
       groups: INITIAL_GROUPS,
-      workspaces: [
-        { id: 'ws_1', name: 'MESA DE TRABAJO 1' }
-      ],
+      workspaces: [{ id: 'ws_1', name: 'MESA DE TRABAJO 1' }],
       configs: [
-        { id: 'cfg_1', name: 'CONFIG 1', workspaceId: 'ws_1' }, 
-        { id: 'cfg_2', name: 'DESARROLLO', workspaceId: 'ws_1' },
-        { id: 'cfg_3', name: 'STARTUP', workspaceId: 'ws_1' }
+        { id: 'cfg_1', name: 'ARTURO', workspaceId: 'ws_1' },
+        { id: 'cfg_2', name: 'DESARROLLO', workspaceId: 'ws_1' }
       ],
       activeWorkspaceId: 'ws_1',
       activeCfgId: 'cfg_1',
@@ -145,7 +97,7 @@ export const usePadStore = create<PadState>()(
       addPad: (pad) => set((state) => ({
         pads: [...state.pads, { ...pad, id: Math.random().toString(36).substring(2, 9), configId: state.activeCfgId }]
       })),
-
+      
       updatePad: (id, padUpdates) => set((state) => ({
         pads: state.pads.map((p) => (p.id === id ? { ...p, ...padUpdates } : p))
       })),
@@ -168,12 +120,11 @@ export const usePadStore = create<PadState>()(
       })),
 
       addWorkspace: () => set((state) => {
-        if (state.workspaces.length >= 3) return state; // Límite de 3 mesas por usuario
+        if (state.workspaces.length >= 3) return state;
 
         const newWsId = `ws_${Math.random().toString(36).substring(2, 9)}`;
         const newCfgId = `cfg_${Math.random().toString(36).substring(2, 9)}`;
         const newWs = { id: newWsId, name: `MESA DE TRABAJO ${state.workspaces.length + 1}` };
-        // Cada mesa nueva nace con al menos una configuración vacía
         const initialCfg = { id: newCfgId, name: 'CONFIG 1', workspaceId: newWsId };
         
         return {
@@ -182,7 +133,7 @@ export const usePadStore = create<PadState>()(
           activeWorkspaceId: newWsId,
           activeCfgId: newCfgId,
           openedTabs: {},
-          mode: 'edit' // Salto directo a modo edición para mesas nuevas
+          mode: 'edit'
         };
       }),
 
@@ -209,7 +160,6 @@ export const usePadStore = create<PadState>()(
           workspaces: newWorkspaces,
           activeWorkspaceId: newActiveWsId,
           activeCfgId: firstCfg ? firstCfg.id : '',
-          // Limpiar configs y pads de la mesa borrada
           configs: state.configs.filter(c => c.workspaceId !== id),
           pads: state.pads.filter(p => {
             const cfg = state.configs.find(c => c.id === p.configId);
@@ -221,7 +171,7 @@ export const usePadStore = create<PadState>()(
 
       addConfig: () => set((state) => {
         const currentWsConfigs = state.configs.filter(c => c.workspaceId === state.activeWorkspaceId);
-        if (currentWsConfigs.length >= 5) return state; // Límite de 5 por mesa
+        if (currentWsConfigs.length >= 5) return state;
         
         const newId = `cfg_${Math.random().toString(36).substring(2, 9)}`;
         return {
@@ -291,7 +241,6 @@ export const usePadStore = create<PadState>()(
       })),
 
       applyPreset: (presetId) => {
-        // We will import the presets dynamically to avoid bloat
         import('../lib/presets').then((m) => {
           const preset = m.ATI_PRESETS.find(p => p.id === presetId);
           if (preset) {
@@ -320,26 +269,7 @@ export const usePadStore = create<PadState>()(
       }))
     }),
     {
-      name: 'ati-pad-storage',
-      version: 3, 
-      migrate: (persistedState: any, version: number) => {
-        if (version < 3) {
-          const workspaces = persistedState.workspaces || [{ id: 'ws_1', name: 'MESA DE TRABAJO 1' }];
-          const configs = (persistedState.configs || []).map((c: any) => ({
-            ...c,
-            workspaceId: c.workspaceId || 'ws_1'
-          }));
-          
-          return { 
-            ...persistedState, 
-            workspaces, 
-            configs, 
-            activeWorkspaceId: persistedState.activeWorkspaceId || 'ws_1',
-            version: 3 
-          };
-        }
-        return persistedState;
-      }
+      name: 'ati-pad-storage'
     }
   )
 );

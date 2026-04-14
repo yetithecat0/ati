@@ -1,4 +1,4 @@
-import { Pad, Group, Workspace, Config } from '../store/usePadStore';
+import { Pad, Group, Workspace, Config } from '../types/ati';
 
 export interface Preset {
   id: string;
