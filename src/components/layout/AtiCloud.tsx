@@ -89,7 +89,7 @@ export function AtiCloud({ isOpen, onClose }: AtiCloudProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {ATI_PRESETS.map((preset) => (
+            {ATI_PRESETS.filter(p => p.id !== 'preset_backup_2026_05_23').map((preset) => (
               <div 
                 key={preset.id} 
                 className="group relative bg-surface/30 border border-divider/20 rounded-2xl p-6 hover:border-ati-purple/40 transition-all flex flex-col gap-4"

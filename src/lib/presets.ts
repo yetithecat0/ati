@@ -13,6 +13,106 @@ export interface Preset {
 
 export const ATI_PRESETS: Preset[] = [
   {
+    id: 'preset_backup_2026_05_23',
+    name: 'RESPALDO ATI - 23/5/2026',
+    author: 'Usuario',
+    description: 'Respaldo importado y asignado como pre-definido.',
+    workspaces: [
+    {
+        id: 'ws_1',
+        name: 'MESA DE TRABAJO 1'
+    },
+    {
+        id: 'ws_c2zioyx',
+        name: 'MESA DE TRABAJO 2'
+    },
+    {
+        id: 'ws_bpc854x',
+        name: 'MESA DE TRABAJO 3'
+    }
+],
+    configs: [
+    {
+        id: 'cfg_1',
+        name: 'ARTURO',
+        workspaceId: 'ws_1'
+    },
+    {
+        id: 'cfg_2',
+        name: 'DESARROLLO',
+        workspaceId: 'ws_1'
+    },
+    {
+        id: 'cfg_29mg9ym',
+        name: 'YETI',
+        workspaceId: 'ws_c2zioyx'
+    },
+    {
+        id: 'cfg_vboxvks',
+        name: 'CONFIG 1',
+        workspaceId: 'ws_bpc854x'
+    },
+    {
+        id: 'cfg_y2kndzb',
+        name: 'NUEVA_2',
+        workspaceId: 'ws_c2zioyx'
+    },
+    {
+        id: 'cfg_gxs7fig',
+        name: 'NUEVA_3',
+        workspaceId: 'ws_c2zioyx'
+    }
+],
+    groups: [
+    {
+        id: '1_llm',
+        label: 'LLMs y Modelos',
+        accentColor: '#7F77DD'
+    },
+    {
+        id: '3_projects',
+        label: 'Proyectos Activos',
+        accentColor: '#27AE60'
+    },
+    {
+        id: '4_apps',
+        label: 'Apps y SaaS',
+        accentColor: '#378ADD'
+    }
+],
+    pads: [
+    {
+        id: '1',
+        name: 'Claude',
+        url: 'https://claude.ai',
+        group: '1_llm',
+        color: '#534AB7',
+        status: 'done',
+        configId: 'cfg_1'
+    },
+    {
+        id: 'qnq3o0e',
+        name: 'Gemini',
+        url: 'https://gemini.google.com',
+        color: '#185FA5',
+        status: 'none',
+        group: '1_llm',
+        rating: 0,
+        configId: 'cfg_2'
+    },
+    {
+        id: 'yi5gj8y',
+        name: 'Gemini',
+        url: 'https://gemini.google.com',
+        color: '#185FA5',
+        status: 'none',
+        group: '1_llm',
+        rating: 0,
+        configId: 'cfg_29mg9ym'
+    }
+]
+  },
+  {
     id: 'preset_yeti',
     name: 'YETI THE CAT MASTER',
     author: 'Yeti The Cat',

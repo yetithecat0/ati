@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Pad, Group, Workspace, Config, Filters } from '../types/ati';
+import { ATI_PRESETS } from '../lib/presets';
 
 interface PadState {
   pads: Pad[];
@@ -84,15 +85,12 @@ const INITIAL_FILTERS: Filters = {
 export const usePadStore = create<PadState>()(
   persist(
     (set) => ({
-      pads: INITIAL_PADS,
-      groups: INITIAL_GROUPS,
-      workspaces: [{ id: 'ws_1', name: 'MESA DE TRABAJO 1' }],
-      configs: [
-        { id: 'cfg_1', name: 'ARTURO', workspaceId: 'ws_1' },
-        { id: 'cfg_2', name: 'DESARROLLO', workspaceId: 'ws_1' }
-      ],
-      activeWorkspaceId: 'ws_1',
-      activeCfgId: 'cfg_1',
+      pads: ATI_PRESETS[0].pads,
+      groups: ATI_PRESETS[0].groups,
+      workspaces: ATI_PRESETS[0].workspaces,
+      configs: ATI_PRESETS[0].configs,
+      activeWorkspaceId: ATI_PRESETS[0].workspaces[0].id,
+      activeCfgId: ATI_PRESETS[0].configs[0].id,
       openedTabs: {},
       mode: 'launch',
 

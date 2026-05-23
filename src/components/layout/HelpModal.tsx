@@ -69,7 +69,7 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] uppercase font-bold text-lo tracking-widest">Email</span>
-              <a href="mailto:soluciones@datawithia.com" className="text-sm text-hi hover:text-ati-purple-light transition-colors">soluciones@datawithia.com</a>
+              <a href="mailto:arturocaccha@gmail.com" className="text-sm text-hi hover:text-ati-purple-light transition-colors">arturocaccha@gmail.com</a>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] uppercase font-bold text-lo tracking-widest">Sitio Web</span>
-              <a href="https://datawithia.com" target="_blank" rel="noopener noreferrer" className="text-sm text-hi hover:text-ati-purple-light transition-colors">datawithia.com</a>
+              <a href="https://gutiperu.com" target="_blank" rel="noopener noreferrer" className="text-sm text-hi hover:text-ati-purple-light transition-colors">gutiperu.com</a>
             </div>
           </div>
 
