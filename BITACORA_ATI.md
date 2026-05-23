@@ -273,3 +273,15 @@ Creación de una nueva consola centralizada para la gestión de datos:
 
 ---
 *Estado actual: ATI v1.0 está OFICIALMENTE EN VIVO. El ecosistema está sincronizado, desplegado y listo para su distribución masiva.*
+
+### Paso 33: Actualización de Contacto y Asignación de Preset Base (Mayo 2026)
+
+**Tipo:** Mantenimiento, Datos y UX.
+**Estado:** Completado ✅.
+
+#### Acciones Realizadas:
+1.  **Actualización de Información de Soporte:** Se modificó la sección "Ayuda" (`HelpModal.tsx`) para reemplazar los datos de contacto anteriores por el correo `arturocaccha@gmail.com` y el sitio web `gutiperu.com`, alineando la herramienta con la nueva identidad de soporte.
+2.  **Integración de Respaldo como Estado Base:** Se extrajo el ADN del archivo de respaldo del usuario (`ati_backup_2026-05-23`) y se inyectó estáticamente en `src/lib/presets.ts`.
+3.  **Configuración de Default State:** Se modificó la tienda Zustand (`usePadStore.ts`) para que el preset del respaldo importado actúe como la configuración *pre-definida* de fábrica. Así, cualquier inicio limpio o purga de caché cargará automáticamente el entorno del usuario.
+4.  **Ocultamiento Estratégico en UI:** A petición del usuario, se filtró ("escondió") el nuevo preset maestro en el renderizado visual de `AtiCloud.tsx` para no saturar la lista de "Configuraciones Maestras" en el frontend, operando exclusivamente tras bambalinas.
+5.  **Sincronización:** Se realizó un commit y push al repositorio central (`chore: actualizar info de contacto y asignar preset base`).
