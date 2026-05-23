@@ -284,4 +284,7 @@ Creación de una nueva consola centralizada para la gestión de datos:
 2.  **Integración de Respaldo como Estado Base:** Se extrajo el ADN del archivo de respaldo del usuario (`ati_backup_2026-05-23`) y se inyectó estáticamente en `src/lib/presets.ts`.
 3.  **Configuración de Default State:** Se modificó la tienda Zustand (`usePadStore.ts`) para que el preset del respaldo importado actúe como la configuración *pre-definida* de fábrica. Así, cualquier inicio limpio o purga de caché cargará automáticamente el entorno del usuario.
 4.  **Ocultamiento Estratégico en UI:** A petición del usuario, se filtró ("escondió") el nuevo preset maestro en el renderizado visual de `AtiCloud.tsx` para no saturar la lista de "Configuraciones Maestras" en el frontend, operando exclusivamente tras bambalinas.
-5.  **Sincronización:** Se realizó un commit y push al repositorio central (`chore: actualizar info de contacto y asignar preset base`).
+6.  **Hotfix ESLint (Build Failing):** Se resolvieron advertencias y errores críticos que impedían el despliegue en Vercel. 
+    - Eliminación de la constante huérfana `INITIAL_PADS` en `usePadStore.ts`.
+    - Apagado de reglas estrictas de `<Image>` para assets remotos dinámicos mediante comentarios `/* eslint-disable @next/next/no-img-element */` en 5 componentes.
+    - Ignorado seguro para fuentes de google en `layout.tsx` (`no-page-custom-font`).

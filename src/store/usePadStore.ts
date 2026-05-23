@@ -68,11 +68,7 @@ const INITIAL_GROUPS: Group[] = [
   { id: '6_vibecoding', label: 'Dw - automatizaciones app', accentColor: '#D32F2F' }
 ];
 
-const INITIAL_PADS: Pad[] = [
-  { id: '1', name: 'Claude', url: 'https://claude.ai', group: '1_llm', color: '#534AB7', status: 'recomendada', rating: 5, configId: 'cfg_1' },
-  { id: '2', name: 'ChatGPT', url: 'https://chat.openai.com', group: '1_llm', color: '#16161a', status: 'en_uso', rating: 4, configId: 'cfg_1' },
-  { id: '3', name: 'Gemini', url: 'https://gemini.google.com', group: '1_llm', color: '#378ADD', status: 'por_probar', configId: 'cfg_1' }
-];
+
 
 const INITIAL_FILTERS: Filters = {
   search: '',
